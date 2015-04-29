@@ -9,10 +9,15 @@ buildscript {
     }
 }
 
+apply plugin: 'java'
 apply plugin: 'idea'
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    compile 'io.dropwizard:dropwizard-core:0.8.1'
 }
 
 task wrapper(type: Wrapper) {

@@ -1,2 +1,6 @@
 .gradle
 .idea
+
+target
+
+skeleton-service.*
