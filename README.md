@@ -1,6 +1,8 @@
 # skeleton-service
 Skeleton service for generating Dropwizard services
 
+[![Build Status](https://snap-ci.com/jenscobie/skeleton-service/branch/master/build_image)](https://snap-ci.com/jenscobie/skeleton-service/branch/master)
+
 ## Environment Setup
 
 ### Intellij
