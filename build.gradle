@@ -12,6 +12,14 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 
+apply plugin: 'application'
+
+mainClassName = 'com.example.helloworld.HelloWorldApplication'
+
+run {
+    args 'server', './src/main/resources/hello-world.yml'
+}
+
 repositories {
     mavenCentral()
 }
