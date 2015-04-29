@@ -2,9 +2,11 @@ project.buildDir = 'target'
 
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
     }
     dependencies {
+        classpath 'com.bmuschko:gradle-vagrant-plugin:2.0'
         classpath 'io.dropwizard:dropwizard-core:0.8.1'
     }
 }
@@ -19,6 +21,8 @@ mainClassName = 'com.example.helloworld.HelloWorldApplication'
 run {
     args 'server', './src/main/resources/hello-world.yml'
 }
+
+apply plugin: 'com.bmuschko.vagrant'
 
 repositories {
     mavenCentral()
