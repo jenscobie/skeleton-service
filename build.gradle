@@ -38,6 +38,12 @@ sourceSets {
     }
 }
 
+idea {
+    module {
+        testSourceDirs += file('src/contract/groovy')
+    }
+}
+
 mainClassName = 'com.example.helloworld.HelloWorldApplication'
 
 run {
