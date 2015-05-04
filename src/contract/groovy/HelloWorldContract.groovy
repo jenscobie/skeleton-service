@@ -12,5 +12,7 @@ class HelloWorldContract extends spock.lang.Specification {
 
         then:
         response.status == 200
+        response.contentType == "application/json"
+        response.data.content == "Hello, Stranger!"
     }
 }
