@@ -29,10 +29,24 @@ dependencies {
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 }
 
+sourceSets {
+    contractTest {
+        groovy.srcDir "src/contract/groovy"
+        resources.srcDir "src/contract/resources"
+        compileClasspath += test.compileClasspath
+        runtimeClasspath += test.runtimeClasspath
+    }
+}
+
 mainClassName = 'com.example.helloworld.HelloWorldApplication'
 
 run {
     args 'server', './src/main/resources/hello-world.yml'
+}
+
+task contract(type: Test) {
+    testClassesDir = sourceSets.contractTest.output.classesDir
+    classpath = sourceSets.contractTest.runtimeClasspath
 }
 
 task wrapper(type: Wrapper) {
