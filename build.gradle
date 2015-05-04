@@ -42,6 +42,15 @@ idea {
     module {
         testSourceDirs += file('src/contract/groovy')
     }
+    project {
+        ipr {
+            withXml { provider ->
+                provider.node.component
+                        .find { it.@name == 'VcsDirectoryMappings' }
+                        .mapping.@vcs = 'Git'
+            }
+        }
+    }
 }
 
 mainClassName = 'com.example.helloworld.HelloWorldApplication'
