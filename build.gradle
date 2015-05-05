@@ -59,6 +59,9 @@ run {
     args 'server', './src/main/resources/hello-world.yml'
 }
 
+task boot(dependsOn: vagrantUp)
+task destroy(dependsOn: vagrantDestroy)
+
 task contract(type: Test) {
     testClassesDir = sourceSets.contractTest.output.classesDir
     classpath = sourceSets.contractTest.runtimeClasspath
