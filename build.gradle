@@ -4,6 +4,7 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'application'
 apply plugin: 'com.bmuschko.vagrant'
+apply plugin: 'sonar-runner'
 
 sourceCompatibility = 1.8
 
@@ -50,6 +51,16 @@ idea {
                         .mapping.@vcs = 'Git'
             }
         }
+    }
+}
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://192.168.50.5:9000"
+        property "sonar.jdbc.url", "jdbc:h2:tcp://192.168.50.5:9092/sonar"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.username", "sonar"
+        property "sonar.jdbc.password", "sonar"
     }
 }
 
