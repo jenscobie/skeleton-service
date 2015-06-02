@@ -2,7 +2,6 @@ project.buildDir = 'target'
 
 apply plugin: 'groovy'
 apply plugin: 'idea'
-apply plugin: 'application'
 apply plugin: 'com.bmuschko.vagrant'
 apply plugin: 'sonar-runner'
 
@@ -62,16 +61,6 @@ sonarRunner {
         property "sonar.jdbc.username", "sonar"
         property "sonar.jdbc.password", "sonar"
     }
-}
-
-mainClassName = 'com.example.helloworld.HelloWorldApplication'
-
-run {
-    args 'server', './src/main/resources/hello-world.yml'
-}
-
-task lint(type: Exec) {
-    commandLine 'chef', 'exec', 'foodcritic', 'provision-package/chef/cookbooks', '-f', 'any'
 }
 
 task boot(dependsOn: vagrantUp)
