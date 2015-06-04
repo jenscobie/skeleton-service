@@ -1,11 +1,5 @@
 project.buildDir = 'target'
 
-apply plugin: 'com.bmuschko.vagrant'
-apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'groovy'
-apply plugin: 'idea'
-apply plugin: 'sonar-runner'
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -18,6 +12,14 @@ buildscript {
         classpath 'com.bmuschko:gradle-vagrant-plugin:2.0'
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.1'
     }
+}
+
+plugins {
+    id 'com.bmuschko.vagrant' version '2.0'
+    id 'com.github.johnrengelman.shadow' version '1.2.1'
+    id 'groovy'
+    id 'idea'
+    id 'sonar-runner'
 }
 
 repositories {
