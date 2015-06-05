@@ -1,8 +1,3 @@
-project.buildDir = 'target'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 buildscript {
     repositories {
         jcenter()
@@ -21,6 +16,11 @@ plugins {
     id 'idea'
     id 'sonar-runner'
 }
+
+project.buildDir = 'target'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
