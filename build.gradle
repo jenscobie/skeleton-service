@@ -35,9 +35,9 @@ dependencies {
 }
 
 sourceSets {
-    contractTest {
-        groovy.srcDir "src/contract/groovy"
-        resources.srcDir "src/contract/resources"
+    acceptanceTest {
+        groovy.srcDir "src/acceptance/groovy"
+        resources.srcDir "src/acceptance/resources"
         compileClasspath += test.compileClasspath
         runtimeClasspath += test.runtimeClasspath
     }
@@ -74,12 +74,31 @@ jar {
     }
 }
 
-task boot(dependsOn: vagrantUp)
-task destroy(dependsOn: vagrantDestroy)
+def DEPLOYMENT = 'Deployment'
 
-task contract(type: Test) {
-    testClassesDir = sourceSets.contractTest.output.classesDir
-    classpath = sourceSets.contractTest.runtimeClasspath
+task dist(dependsOn: shadowJar) {
+    group DEPLOYMENT
+    description 'Create a debian package with application and infrastructure code'
+}
+
+task boot(dependsOn: vagrantUp) {
+    group DEPLOYMENT
+    description 'Ensure a local virtual machine is running'
+}
+
+task destroy(dependsOn: vagrantDestroy) {
+    group DEPLOYMENT
+    description 'Destroy the currently running local virtual machine'
+}
+
+task acceptance(type: Test) {
+    testClassesDir = sourceSets.acceptanceTest.output.classesDir
+    classpath = sourceSets.acceptanceTest.runtimeClasspath
+}
+
+task precommit(dependsOn: [test, dist, boot, acceptance]) {
+    group 'Verification'
+    description 'Run all validations before pushing code'
 }
 
 task wrapper(type: Wrapper) {

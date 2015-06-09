@@ -1,7 +1,7 @@
 import groovyx.net.http.RESTClient
 import spock.lang.*
 
-class HelloWorldContract extends spock.lang.Specification {
+class HelloWorldAcceptanceTest extends spock.lang.Specification {
 
     def "GET returns 200"() {
         given:
