@@ -1,10 +1,24 @@
-# skeleton-service
-Skeleton service for generating Dropwizard services
+# Service Generator
+
+> Generate a skeleton service with a one line command 
 
 [![Build Status](https://snap-ci.com/jenscobie/skeleton-service/branch/master/build_image)](https://snap-ci.com/jenscobie/skeleton-service/branch/master)
 
-## Environment Setup
+## Motivation
 
-### Intellij
+This project aims to minimize the time taken to deploy a Dropwizard service to production. Running the generate command
+will copy most of this project into a new GitHub repository. The new project will contain a sample service with build
+tasks to compile, unit test, package, deploy and acceptance test the service. The only thing it won't do (currently) is
+create a new build pipeline for you.
 
-To generate Intellij project files from the gradle build, simply run ```./go idea```
+## Requirements
+
+Nil
+
+## Usage
+
+    Usage: ./generate <repo-name>
+    
+## Author
+
+Jen Scobie (jenscobie@gmail.com)
