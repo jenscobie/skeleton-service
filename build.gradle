@@ -10,6 +10,7 @@ buildscript {
 }
 
 plugins {
+    id 'application'
     id 'com.bmuschko.vagrant' version '2.0'
     id 'com.github.johnrengelman.shadow' version '1.2.1'
     id 'groovy'
@@ -68,10 +69,16 @@ sonarRunner {
     }
 }
 
+mainClassName = "com.example.helloworld.HelloWorldApplication"
+
 jar {
     manifest {
-        attributes("Main-Class": "com.example.helloworld.HelloWorldApplication")
+        attributes("Main-Class": mainClassName)
     }
+}
+
+run {
+    args "server", './src/main/resources/hello-world.yml'
 }
 
 def DEPLOYMENT = 'Deployment'
