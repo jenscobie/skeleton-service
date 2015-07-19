@@ -81,6 +81,11 @@ run {
     args "server", './src/main/resources/hello-world.yml'
 }
 
+shadowJar {
+    archiveName 'skeleton-service.jar'
+    mergeServiceFiles()
+}
+
 def DEPLOYMENT = 'Deployment'
 
 task dist(dependsOn: shadowJar) {
