@@ -103,6 +103,13 @@ ospackage {
         fileType CONFIG | NOREPLACE
         into 'conf'
     }
+
+    from('provision') {
+        into 'bin'
+        fileMode = 0755
+    }
+
+    link('/etc/init.d/skeleton-service', '/opt/skeleton-service/bin/skeleton-service')
 }
 
 def DEPLOYMENT = 'Deployment'

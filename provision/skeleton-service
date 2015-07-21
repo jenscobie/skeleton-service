@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Source function library.
+. /etc/init.d/functions
+
+RETVAL=0
+prog="skeleton-service"
+LOCKFILE=/var/lock/subsys/$prog
+DROPWIZARD_JAR=/opt/$prog/lib/$prog.jar
+DROPWIZARD_YAML=/opt/$prog/conf/hello-world.yml
+
+start() {
+        echo -n "Starting $prog: "
+        daemon /usr/bin/java -jar $DROPWIZARD_JAR server $DROPWIZARD_YAML
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && touch $LOCKFILE
+        echo
+        return $RETVAL
+}
+
+stop() {
+        return 0
+}
+
+status() {
+        return 0
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: skeleton-service {start|stop|status|restart"
+        exit 1
+        ;;
+esac
+exit $?
