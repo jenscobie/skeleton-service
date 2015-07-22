@@ -114,6 +114,8 @@ ospackage {
 
 def DEPLOYMENT = 'Deployment'
 
+buildRpm.dependsOn shadowJar
+
 task dist(dependsOn: buildRpm) {
     group DEPLOYMENT
     description 'Create an RPM package with application and infrastructure code'
