@@ -89,7 +89,7 @@ shadowJar {
 
 ospackage {
     version = '1.0.0'
-    release = '1'
+    release = 'SNAPSHOT'
     arch = X86_64
     os = LINUX
 
@@ -121,7 +121,11 @@ task dist(dependsOn: buildRpm) {
     description 'Create an RPM package with application and infrastructure code'
 }
 
-task boot(dependsOn: vagrantUp) {
+task install(type: Exec) {
+    commandLine 'ansible-galaxy', 'install', '--role-file=Galaxyfile', '--roles-path=provision/roles', '--force'
+}
+
+task boot(dependsOn: [install, dist, vagrantUp]) {
     group DEPLOYMENT
     description 'Ensure a local virtual machine is running'
 }
@@ -136,7 +140,7 @@ task acceptance(type: Test) {
     classpath = sourceSets.acceptanceTest.runtimeClasspath
 }
 
-task precommit(dependsOn: [test, dist, boot, acceptance]) {
+task precommit(dependsOn: [clean, test, dist, boot, acceptance]) {
     group 'Verification'
     description 'Run all validations before pushing code'
 }
