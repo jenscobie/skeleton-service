@@ -1,29 +1,62 @@
 #!/bin/bash
+# skeleton-service daemon
+# chkconfig: 345 20 80
+# description: skeleton-service daemon
+# processname: skeleton-service
 
-# Source function library.
-. /etc/init.d/functions
+NAME=skeleton-service
+DESC="skeleton-service daemon"
+DAEMON_PATH=/opt/$NAME
 
-RETVAL=0
-prog="skeleton-service"
-LOCKFILE=/var/lock/subsys/$prog
-DROPWIZARD_JAR=/opt/$prog/lib/$prog.jar
-DROPWIZARD_YAML=/opt/$prog/conf/hello-world.yml
+DROPWIZARD_JAR=/opt/$NAME/lib/$NAME.jar
+DROPWIZARD_YAML=/opt/$NAME/conf/hello-world.yml
+DAEMON=/usr/bin/java
+DAEMONOPTS="-jar $DROPWIZARD_JAR server $DROPWIZARD_YAML"
+
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
 
 start() {
-        echo -n "Starting $prog: "
-        daemon /usr/bin/java -jar $DROPWIZARD_JAR server $DROPWIZARD_YAML
-        RETVAL=$?
-        [ $RETVAL -eq 0 ] && touch $LOCKFILE
-        echo
-        return $RETVAL
+    echo "Starting $NAME"
+	cd $DAEMON_PATH
+	PID=`$DAEMON $DAEMONOPTS > /dev/null 2>&1 & echo $!`
+	if [ -z $PID ]; then
+        echo "Failed to start $NAME"
+    else
+        echo $PID > $PIDFILE
+        echo "$NAME started"
+    fi
 }
 
 stop() {
-        return 0
+	echo "Stopping $NAME"
+        PID=`cat $PIDFILE`
+        cd $DAEMON_PATH
+    if [ -f $PIDFILE ]; then
+        kill -HUP $PID
+        echo "$NAME stopped"
+        rm -f $PIDFILE
+    else
+        echo "pidfile $PIDFILE not found"
+    fi
 }
 
 status() {
-        return 0
+	if [ -f $PIDFILE ]; then
+        PID=`cat $PIDFILE`
+        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+            printf "%s\n" "$NAME (pid $PID) process is dead but pidfile exists"
+        else
+            echo "$NAME (pid $PID) is running"
+        fi
+    else
+        printf "%s\n" "$NAME is not running"
+    fi
+}
+
+restart() {
+	stop
+	start
 }
 
 case "$1" in
@@ -37,12 +70,12 @@ case "$1" in
         status
         ;;
     restart)
-        stop
-        start
+        restart
         ;;
     *)
-        echo "Usage: skeleton-service {start|stop|status|restart"
+        echo "Usage: skeleton-service {status|start|stop|restart}"
         exit 1
         ;;
 esac
+
 exit $?
