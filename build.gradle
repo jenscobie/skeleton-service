@@ -121,11 +121,11 @@ task dist(dependsOn: buildRpm) {
     description 'Create an RPM package with application and infrastructure code'
 }
 
-task install(type: Exec) {
+task setup(type: Exec) {
     commandLine 'ansible-galaxy', 'install', '--role-file=Galaxyfile', '--roles-path=provision/roles', '--force'
 }
 
-task boot(dependsOn: [install, dist, vagrantUp]) {
+task boot(dependsOn: [dist, vagrantUp]) {
     group DEPLOYMENT
     description 'Ensure a local virtual machine is running'
 }
@@ -140,10 +140,14 @@ task acceptance(type: Test) {
     classpath = sourceSets.acceptanceTest.runtimeClasspath
 }
 
-task precommit(dependsOn: [clean, test, dist, boot, acceptance]) {
+task precommit(dependsOn: [clean, test, boot, acceptance]) {
     group 'Verification'
     description 'Run all validations before pushing code'
 }
+
+test.mustRunAfter clean
+boot.mustRunAfter test
+acceptance.mustRunAfter boot
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
