@@ -1,3 +1,5 @@
+import com.bmuschko.gradle.vagrant.tasks.Vagrant
+
 buildscript {
     repositories {
         jcenter()
@@ -116,18 +118,26 @@ def DEPLOYMENT = 'Deployment'
 
 buildRpm.dependsOn shadowJar
 
+task setup(type: Exec) {
+    commandLine 'ansible-galaxy', 'install', '--role-file=Galaxyfile', '--roles-path=provision/roles', '--force'
+}
+
+
 task dist(dependsOn: buildRpm) {
     group DEPLOYMENT
     description 'Create an RPM package with application and infrastructure code'
 }
 
-task setup(type: Exec) {
-    commandLine 'ansible-galaxy', 'install', '--role-file=Galaxyfile', '--roles-path=provision/roles', '--force'
-}
-
-task boot(dependsOn: [dist, vagrantUp]) {
+task boot(type: Vagrant) {
     group DEPLOYMENT
     description 'Ensure a local virtual machine is running'
+    commands = ['up', '--no-provision']
+}
+
+task deploy(type: Vagrant, dependsOn: dist) {
+    group DEPLOYMENT
+    description = 'Deploy snapshot to local virtual machine'
+    commands = ['provision']
 }
 
 task destroy(dependsOn: vagrantDestroy) {
