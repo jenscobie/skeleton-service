@@ -138,6 +138,10 @@ task destroy(dependsOn: vagrantDestroy) {
 task acceptance(type: Test) {
     testClassesDir = sourceSets.acceptanceTest.output.classesDir
     classpath = sourceSets.acceptanceTest.runtimeClasspath
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
 }
 
 task precommit(dependsOn: [clean, test, boot, acceptance]) {
