@@ -114,23 +114,26 @@ ospackage {
     link('/etc/init.d/skeleton-service', '/opt/skeleton-service/bin/skeleton-service')
 }
 
-def DEPLOYMENT = 'Deployment'
-
-buildRpm.dependsOn shadowJar
-
 task setup(type: Exec) {
     commandLine 'ansible-galaxy', 'install', '--role-file=Galaxyfile', '--roles-path=provision/roles', '--force'
 }
 
+buildRpm.dependsOn shadowJar
+
+def PACKAGE = 'Package'
+
 task dist(dependsOn: buildRpm) {
-    group DEPLOYMENT
+    group PACKAGE
     description 'Create an RPM package with application and infrastructure code'
 }
 
 task packageZip(type: Zip, dependsOn: dist) {
+    group PACKAGE
     from('target/distributions')
     destinationDir file('dist')
 }
+
+def DEPLOYMENT = 'Deployment'
 
 task boot(type: Vagrant) {
     group DEPLOYMENT
