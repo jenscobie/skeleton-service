@@ -141,7 +141,12 @@ task boot(type: Vagrant) {
     commands = ['up', '--no-provision']
 }
 
-task deploy(type: Vagrant, dependsOn: dist) {
+task deploy(type: Exec, dependsOn: setup) {
+    group DEPLOYMENT
+    commandLine 'ansible-playbook', 'provision/roles/jenscobie.skeleton-service/site.yml', '-i', 'hosts', '-u', 'ec2-user', '--private=key', 'ec2.pem'
+}
+
+task localDeploy(type: Vagrant, dependsOn: dist) {
     group DEPLOYMENT
     description = 'Deploy snapshot to local virtual machine'
     commands = ['provision']
