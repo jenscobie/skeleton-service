@@ -72,16 +72,16 @@ sonarRunner {
     }
 }
 
-mainClassName = "com.example.helloworld.HelloWorldApplication"
+mainClassName = 'com.example.helloworld.HelloWorldApplication'
 
 jar {
     manifest {
-        attributes("Main-Class": mainClassName)
+        attributes('Main-Class': mainClassName)
     }
 }
 
 run {
-    args "server", './src/main/resources/hello-world.yml'
+    args 'server', './src/main/resources/hello-world.yml'
 }
 
 shadowJar {
@@ -122,10 +122,14 @@ task setup(type: Exec) {
     commandLine 'ansible-galaxy', 'install', '--role-file=Galaxyfile', '--roles-path=provision/roles', '--force'
 }
 
-
 task dist(dependsOn: buildRpm) {
     group DEPLOYMENT
     description 'Create an RPM package with application and infrastructure code'
+}
+
+task packageZip(type: Zip, dependsOn: dist) {
+    from('target/distributions')
+    destinationDir file('dist')
 }
 
 task boot(type: Vagrant) {

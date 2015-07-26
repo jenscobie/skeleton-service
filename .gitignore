@@ -3,5 +3,6 @@
 .vagrant
 
 target
+dist
 
 skeleton-service.*
