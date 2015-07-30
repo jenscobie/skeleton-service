@@ -2,8 +2,6 @@
 
 > Generate a skeleton service with a one line command 
 
-[![Build Status](https://snap-ci.com/jenscobie/skeleton-service/branch/master/build_image)](https://snap-ci.com/jenscobie/skeleton-service/branch/master)
-
 ## Motivation
 
 This project aims to minimize the time taken to deploy a Dropwizard service to production. Running the generate command
