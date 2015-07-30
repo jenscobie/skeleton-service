@@ -11,7 +11,9 @@ create a new build pipeline for you.
 
 ## Requirements
 
-Nil
+* [Python](https://www.python.org/downloads/)
+* [Vagrant](https://www.vagrantup.com/)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 ## Usage
 
