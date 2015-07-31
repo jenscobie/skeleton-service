@@ -132,7 +132,7 @@ task dist(dependsOn: buildRpm) {
 task packageZip(type: Zip, dependsOn: dist) {
     group PACKAGE
     from('target/distributions')
-    destinationDir file('dist')
+    destinationDir file('provision/roles/jenscobie.skeleton-service/dist')
 }
 
 def DEPLOYMENT = 'Deployment'
@@ -143,7 +143,7 @@ task boot(type: Vagrant) {
     commands = ['up', '--no-provision']
 }
 
-task deploy(type: Vagrant, dependsOn: dist) {
+task deploy(type: Vagrant, dependsOn: packageZip    ) {
     group DEPLOYMENT
     description = 'Deploy snapshot to local virtual machine'
     commands = ['provision']
