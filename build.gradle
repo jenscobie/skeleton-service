@@ -15,7 +15,6 @@ plugins {
     id 'application'
     id 'com.bmuschko.vagrant' version '2.0'
     id 'com.github.johnrengelman.shadow' version '1.2.1'
-    id 'groovy'
     id 'idea'
     id 'nebula.os-package' version '2.2.6'
     id 'sonar-runner'
@@ -34,14 +33,10 @@ dependencies {
     testCompile 'com.typesafe:config:1.2.1'
     testCompile 'com.jayway.restassured:rest-assured:2.4.1'
     testCompile 'com.jayway.restassured:json-path:2.4.1'
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.3'
-    testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
 
 sourceSets {
     acceptanceTest {
-        groovy.srcDir "src/acceptance/groovy"
         java.srcDir "src/acceptance/java"
         resources.srcDir "src/acceptance/resources"
         compileClasspath += test.compileClasspath
@@ -50,9 +45,6 @@ sourceSets {
 }
 
 idea {
-    module {
-        testSourceDirs += file('src/contract/groovy')
-    }
     project {
         ipr {
             withXml { provider ->
