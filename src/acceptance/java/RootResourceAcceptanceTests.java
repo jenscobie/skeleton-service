@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class RootResourceAcceptanceTests {
@@ -31,12 +32,12 @@ public class RootResourceAcceptanceTests {
         when().
             get("/").
         then().
-            assertThat().body(equalTo(rootRepresentationWith(configuration)));
+            assertThat()
+                .body("links.name", hasItems("self"))
+                .body("links.href", hasItems(urlFor("/")));
     }
 
-    private String rootRepresentationWith(AcceptanceTestConfiguration configuration) {
-        return "{\"links\":[" +
-               "{\"name\":\"self\"," +
-               "\"href\":\"" + configuration.baseUri + ":" + configuration.port + "/\"}]}";
+    private String urlFor(String resource) {
+        return configuration.baseUri + ":" + configuration.port + resource;
     }
 }
