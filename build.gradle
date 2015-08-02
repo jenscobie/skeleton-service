@@ -16,6 +16,7 @@ plugins {
     id 'com.bmuschko.vagrant' version '2.0'
     id 'com.github.johnrengelman.shadow' version '1.2.1'
     id 'idea'
+    id 'jacoco'
     id 'nebula.os-package' version '2.2.6'
     id 'sonar-runner'
 }
@@ -54,6 +55,12 @@ idea {
                         .mapping.@vcs = 'Git'
             }
         }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        html.destination "${buildDir}/reports/jacoco"
     }
 }
 
@@ -165,6 +172,13 @@ task acceptance(type: Test) {
         exceptionFormat = 'full'
     }
 }
+
+task coverage(dependsOn: [test, jacocoTestReport]) {
+    group 'Verification'
+    description 'Unit test coverage report'
+}
+
+jacocoTestReport.mustRunAfter test
 
 task precommit(dependsOn: [clean, test, boot, deploy, acceptance]) {
     group 'Verification'
