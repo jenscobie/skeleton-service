@@ -34,6 +34,15 @@ public class RootResourceAcceptanceTests {
             assertThat().body("_links.self.href", equalTo(urlFor("/")));
     }
 
+    @Test
+    public void rootResourceHasHelloLink() {
+        given().
+        when().
+            get("/").
+        then().
+            assertThat().body("_links.hello.href", equalTo(urlFor("/hello-world")));
+    }
+
     private String urlFor(String resource) {
         return configuration.baseUri + ":" + configuration.port + resource;
     }

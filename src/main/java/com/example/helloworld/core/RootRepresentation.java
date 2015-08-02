@@ -4,20 +4,17 @@ import com.example.helloworld.core.serializers.HalLinksSerializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.ws.rs.core.UriInfo;
-
 public class RootRepresentation {
 
-    private UriInfo href;
+    private HalLink[] halLinks;
 
-    public RootRepresentation(UriInfo href) {
-        this.href = href;
+    public RootRepresentation(HalLink... halLinks) {
+        this.halLinks = halLinks;
     }
 
     @JsonProperty(value = "_links")
     @JsonSerialize(using = HalLinksSerializer.class)
     public HalLinks getLinks() {
-        HalLink self = new HalLink("self", href);
-        return new HalLinks(self);
+        return new HalLinks(halLinks);
     }
 }

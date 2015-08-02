@@ -23,7 +23,7 @@ public class HalLinksSerializer extends JsonSerializer<HalLinks> {
     private void serialize(HalLink halLink, JsonGenerator jsonGenerator) throws IOException {
         jsonGenerator.writeFieldName(halLink.getName());
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("href", halLink.getHref());
+        jsonGenerator.writeStringField("href", halLink.getUri());
         jsonGenerator.writeEndObject();
     }
 }

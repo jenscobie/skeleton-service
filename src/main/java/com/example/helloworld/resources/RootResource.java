@@ -1,5 +1,6 @@
 package com.example.helloworld.resources;
 
+import com.example.helloworld.core.HalLink;
 import com.example.helloworld.core.RootRepresentation;
 
 import javax.ws.rs.GET;
@@ -20,6 +21,17 @@ public class RootResource {
 
     @GET
     public RootRepresentation get(@Context UriInfo uriInfo) {
-        return new RootRepresentation(uriInfo);
+        URI selfUri = uriInfo.getBaseUriBuilder()
+                .path(RootResource.class)
+                .build();
+
+        URI helloWorldUri = uriInfo.getBaseUriBuilder()
+                .path(HelloWorldResource.class)
+                .build();
+
+        HalLink selfLink = new HalLink("self", selfUri);
+        HalLink helloWorldLink = new HalLink("hello", helloWorldUri);
+
+        return new RootRepresentation(selfLink, helloWorldLink);
     }
 }

@@ -23,7 +23,9 @@ public class RootResourceTest {
         URI uri = UriBuilder.fromPath("http://localhost:8080/").build();
         UriInfo uriInfo = mock(UriInfo.class);
         when(uriInfo.getAbsolutePath()).thenReturn(uri);
-        RootRepresentation rootRepresentation = new RootRepresentation(uriInfo);
+
+        HalLink selfLink = new HalLink("self", uri);
+        RootRepresentation rootRepresentation = new RootRepresentation(selfLink);
         ObjectMapper objectMapper = new ObjectMapper();
 
         // When
