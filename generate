@@ -28,6 +28,13 @@ else
     cd $name
     mv README.template.md README.md
     git add README.md
-    git commit -m "Update README"
+    git rm README.template.md
+    git rm generate
+    git commit -m "Remove service generator files"
     git push origin master
+
+    cd ..
+    rm -rf $name
+
+    echo "My work here is done. Clone your new repo and be productive: $repo"
 fi
