@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Path("/hello-world")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces("application/hal+json")
 public class HelloWorldResource {
 
     private final String template;

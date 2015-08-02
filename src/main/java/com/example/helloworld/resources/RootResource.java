@@ -12,7 +12,7 @@ import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 
 @Path("/")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces("application/hal+json")
 public class RootResource {
 
     public RootResource() {
