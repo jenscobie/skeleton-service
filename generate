@@ -3,7 +3,7 @@
 set -e
 
 function helptext {
-    echo "Usage: ./generate https://github.com/username/repo-name.git"
+    echo "Usage: ./generate https://github.com/username/repo-name.git repo-name"
     echo ""
     echo "GitHub repo must exist and you must be able to write to it."
 }
@@ -13,11 +13,21 @@ then
     helptext
     exit 1
 else
+    repo=$1
+    name=$2
+
     git clone --bare https://github.com/jenscobie/skeleton-service.git
     cd skeleton-service.git
 
-    git push --mirror $1
+    git push --mirror $repo
 
     cd ..
     rm -rf skeleton-service.git
+
+    git clone $repo
+    cd $name
+    mv README.template.md README.md
+    git add README.md
+    git commit -m "Update README"
+    git push origin master
 fi
