@@ -13,12 +13,12 @@ public class SayingRepresentation {
     @Length(max = 3)
     private String content;
 
-    private HalLinkRespresentation[] halLinks;
+    private HalLinkRepresentation[] halLinks;
 
     public SayingRepresentation() {
     }
 
-    public SayingRepresentation(long id, String content, HalLinkRespresentation... halLinks) {
+    public SayingRepresentation(long id, String content, HalLinkRepresentation... halLinks) {
         this.id = id;
         this.content = content;
         this.halLinks = halLinks;

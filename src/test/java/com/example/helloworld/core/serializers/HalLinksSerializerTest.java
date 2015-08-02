@@ -1,6 +1,6 @@
 package com.example.helloworld.core.serializers;
 
-import com.example.helloworld.core.HalLinkRespresentation;
+import com.example.helloworld.core.HalLinkRepresentation;
 import com.example.helloworld.core.RootRepresentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class HalLinksSerializerTest {
         UriInfo uriInfo = mock(UriInfo.class);
         when(uriInfo.getAbsolutePath()).thenReturn(uri);
 
-        HalLinkRespresentation selfLink = new HalLinkRespresentation("self", uri);
+        HalLinkRepresentation selfLink = new HalLinkRepresentation("self", uri);
         RootRepresentation rootRepresentation = new RootRepresentation(selfLink);
         ObjectMapper objectMapper = new ObjectMapper();
 

@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.net.URI;
 
-public class HalLinkRespresentation {
+public class HalLinkRepresentation {
 
     private String name;
 
     private URI uri;
 
-    public HalLinkRespresentation(String name, URI uri) {
+    public HalLinkRepresentation(String name, URI uri) {
         this.name = name;
         this.uri = uri;
     }

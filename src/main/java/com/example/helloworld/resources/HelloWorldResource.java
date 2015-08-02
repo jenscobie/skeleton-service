@@ -1,6 +1,6 @@
 package com.example.helloworld.resources;
 
-import com.example.helloworld.core.HalLinkRespresentation;
+import com.example.helloworld.core.HalLinkRepresentation;
 import com.example.helloworld.core.SayingRepresentation;
 import com.google.common.base.Optional;
 import com.codahale.metrics.annotation.Timed;
@@ -10,7 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicLong;
@@ -36,7 +35,7 @@ public class HelloWorldResource {
                 .path(HelloWorldResource.class)
                 .build();
 
-        HalLinkRespresentation selfLink = new HalLinkRespresentation("self", selfUri);
+        HalLinkRepresentation selfLink = new HalLinkRepresentation("self", selfUri);
 
         final String value = String.format(template, name.or(defaultName));
         return new SayingRepresentation(counter.incrementAndGet(), value, selfLink);

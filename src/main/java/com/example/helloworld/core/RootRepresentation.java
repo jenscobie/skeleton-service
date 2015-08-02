@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class RootRepresentation {
 
-    private HalLinkRespresentation[] halLinks;
+    private HalLinkRepresentation[] halLinks;
 
-    public RootRepresentation(HalLinkRespresentation... halLinks) {
+    public RootRepresentation(HalLinkRepresentation... halLinks) {
         this.halLinks = halLinks;
     }
 

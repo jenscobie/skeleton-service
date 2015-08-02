@@ -1,13 +1,12 @@
 package com.example.helloworld.resources;
 
-import com.example.helloworld.core.HalLinkRespresentation;
+import com.example.helloworld.core.HalLinkRepresentation;
 import com.example.helloworld.core.RootRepresentation;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 
@@ -28,8 +27,8 @@ public class RootResource {
                 .path(HelloWorldResource.class)
                 .build();
 
-        HalLinkRespresentation selfLink = new HalLinkRespresentation("self", selfUri);
-        HalLinkRespresentation helloWorldLink = new HalLinkRespresentation("hello", helloWorldUri);
+        HalLinkRepresentation selfLink = new HalLinkRepresentation("self", selfUri);
+        HalLinkRepresentation helloWorldLink = new HalLinkRepresentation("hello", helloWorldUri);
 
         return new RootRepresentation(selfLink, helloWorldLink);
     }
