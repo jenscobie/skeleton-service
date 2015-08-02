@@ -8,9 +8,10 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class HelloWorldAcceptanceTests {
 
+    private AcceptanceTestConfiguration configuration = new AcceptanceTestConfiguration();
+
     @Before
     public void setup() {
-        AcceptanceTestConfiguration configuration = new AcceptanceTestConfiguration();
         RestAssured.baseURI = configuration.baseUri;
         RestAssured.port = configuration.port;
     }
@@ -22,5 +23,18 @@ public class HelloWorldAcceptanceTests {
             .get("/hello-world")
         .then()
             .statusCode(equalTo(HttpStatus.OK_200));
+    }
+
+    @Test
+    public void helloWorldResourceHasSelfLink() {
+        given().
+        when().
+            get("/hello-world").
+        then().
+            assertThat().body("_links.self.href", equalTo(urlFor("/hello-world")));
+    }
+
+    private String urlFor(String resource) {
+        return configuration.baseUri + ":" + configuration.port + resource;
     }
 }

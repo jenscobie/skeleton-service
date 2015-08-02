@@ -1,5 +1,7 @@
-package com.example.helloworld.core;
+package com.example.helloworld.core.serializers;
 
+import com.example.helloworld.core.HalLinkRespresentation;
+import com.example.helloworld.core.RootRepresentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
@@ -13,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RootResourceTest {
+public class HalLinksSerializerTest {
 
     private final String rootResourceJson = "{\"_links\":{\"self\":{\"href\":\"http://localhost:8080/\"}}}";
 
@@ -24,7 +26,7 @@ public class RootResourceTest {
         UriInfo uriInfo = mock(UriInfo.class);
         when(uriInfo.getAbsolutePath()).thenReturn(uri);
 
-        HalLink selfLink = new HalLink("self", uri);
+        HalLinkRespresentation selfLink = new HalLinkRespresentation("self", uri);
         RootRepresentation rootRepresentation = new RootRepresentation(selfLink);
         ObjectMapper objectMapper = new ObjectMapper();
 

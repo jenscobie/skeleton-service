@@ -1,6 +1,6 @@
 package com.example.helloworld.resources;
 
-import com.example.helloworld.core.HalLink;
+import com.example.helloworld.core.HalLinkRespresentation;
 import com.example.helloworld.core.RootRepresentation;
 
 import javax.ws.rs.GET;
@@ -8,7 +8,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 
@@ -29,8 +28,8 @@ public class RootResource {
                 .path(HelloWorldResource.class)
                 .build();
 
-        HalLink selfLink = new HalLink("self", selfUri);
-        HalLink helloWorldLink = new HalLink("hello", helloWorldUri);
+        HalLinkRespresentation selfLink = new HalLinkRespresentation("self", selfUri);
+        HalLinkRespresentation helloWorldLink = new HalLinkRespresentation("hello", helloWorldUri);
 
         return new RootRepresentation(selfLink, helloWorldLink);
     }
