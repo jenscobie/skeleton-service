@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.jayway.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class RootResourceAcceptanceTests {
@@ -32,9 +31,7 @@ public class RootResourceAcceptanceTests {
         when().
             get("/").
         then().
-            assertThat()
-                .body("links.name", hasItems("self"))
-                .body("links.href", hasItems(urlFor("/")));
+            assertThat().body("_links.self.href", equalTo(urlFor("/")));
     }
 
     private String urlFor(String resource) {

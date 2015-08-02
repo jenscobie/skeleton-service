@@ -3,11 +3,11 @@ package com.example.helloworld.core;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.ws.rs.core.UriInfo;
-import java.net.URI;
 
 public class HalLink {
 
     private String name;
+
     private UriInfo href;
 
     public HalLink(String name, UriInfo href) {
@@ -21,7 +21,7 @@ public class HalLink {
     }
 
     @JsonProperty
-    public URI getHref() {
-        return href.getAbsolutePath();
+    public String getHref() {
+        return href.getAbsolutePath().toString();
     }
 }
