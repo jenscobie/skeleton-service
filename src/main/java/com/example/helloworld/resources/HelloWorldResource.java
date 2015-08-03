@@ -31,9 +31,10 @@ public class HelloWorldResource {
     @GET
     @Timed
     public SayingRepresentation sayHello(@QueryParam("name") Optional<String> name, @Context UriInfo uriInfo) {
-        URI selfUri = uriInfo.getBaseUriBuilder()
+        String selfUri = uriInfo.getBaseUriBuilder()
                 .path(HelloWorldResource.class)
-                .build();
+                .build()
+                .toASCIIString();
 
         HalLinkRepresentation selfLink = new HalLinkRepresentation("self", selfUri);
 

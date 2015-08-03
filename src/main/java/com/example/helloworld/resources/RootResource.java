@@ -1,5 +1,6 @@
 package com.example.helloworld.resources;
 
+import com.example.helloworld.core.CuriesLinkRepresentation;
 import com.example.helloworld.core.HalLinkRepresentation;
 import com.example.helloworld.core.RootRepresentation;
 
@@ -19,17 +20,22 @@ public class RootResource {
 
     @GET
     public RootRepresentation get(@Context UriInfo uriInfo) {
-        URI selfUri = uriInfo.getBaseUriBuilder()
+        String selfUri = uriInfo.getBaseUriBuilder()
                 .path(RootResource.class)
-                .build();
+                .build()
+                .toASCIIString();
 
-        URI helloWorldUri = uriInfo.getBaseUriBuilder()
+        String helloWorldUri = uriInfo.getBaseUriBuilder()
                 .path(HelloWorldResource.class)
-                .build();
+                .build()
+                .toASCIIString();
+
+        String curiesUri = "http://www.example.com/docs/{rel}";
 
         HalLinkRepresentation selfLink = new HalLinkRepresentation("self", selfUri);
         HalLinkRepresentation helloWorldLink = new HalLinkRepresentation("hello", helloWorldUri);
+        CuriesLinkRepresentation curiesLink = new CuriesLinkRepresentation("doc", curiesUri, true);
 
-        return new RootRepresentation(selfLink, helloWorldLink);
+        return new RootRepresentation(selfLink, helloWorldLink, curiesLink);
     }
 }

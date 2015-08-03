@@ -2,13 +2,13 @@ package com.example.helloworld.core;
 
 public class HalLinksRepresentation {
 
-    private HalLinkRepresentation[] links;
+    private HalLinkRepresentationBase[] links;
 
-    public HalLinksRepresentation(HalLinkRepresentation... links) {
+    public HalLinksRepresentation(HalLinkRepresentationBase... links) {
         this.links = links;
     }
 
-    public HalLinkRepresentation[] getLinks() {
+    public HalLinkRepresentationBase[] getLinks() {
         return links;
     }
 }
